@@ -1,7 +1,7 @@
 <h1> Player </h1><br>
 <h3> ✨ Features ✨ </h3><br>
 <ol>
-  <li>💡 <strong>You can search and play music</strong><br><br></li>
+  <li>💡 <strong>You can search and play music for free</strong><br><br></li>
   <li>💡 <strong>You can download the music to your local storage</strong><br><br></li>
   <li>💡 <strong>More features are still under development</strong><br><br></li>
 </ol>
@@ -12,4 +12,4 @@
   <li>💎 <strong>http://ovooa.com/<strong><br><br></li>
 </ol>
 <br><br><br><br>
-<h1> ⚡Download and Enjoy⚡ </h1>
+<h2> ⚡Download and Enjoy⚡ </h2>
