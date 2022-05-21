@@ -1,0 +1,56 @@
+{
+  "name": "player",
+  "description": "Player-SL",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "package": "electron-packager . Player --platform=win32 --arch=x64 --icon ./img/icon.ico --out ./out --overwrite",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "productName":"Player-SL",
+    "appId": "com.kinleoapple.player",
+    "copyright":"© kinleoapple 2022",
+    "directories": {
+      "output": "build"
+    },
+    "compression": "maximum",
+    "asar": false,
+    "win": {
+      "icon": "img/icon.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "ia32"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "./build/icons/icon.ico",
+      "uninstallerIcon": "",
+      "installerHeaderIcon": "img/icon.ico",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": false,
+      "shortcutName": "Player-SL"
+    }
+  },
+  "author": "KinLeoapple",
+  "license": "CC0-1.0",
+  "version": "0.0.1",
+  "devDependencies": {
+    "electron": "^18.0.0",
+    "electron-builder": "^22.5.1",
+    "electron-packager": "^15.4.0",
+    "electron-updater": "^4.6.5",
+    "grunt": "^1.5.2",
+    "grunt-electron-installer": "^2.1.0"
+  },
+  "dependencies": {
+    "node-cmd": "^5.0.0"
+  }
+}

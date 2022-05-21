@@ -1,0 +1,57 @@
+{
+  "name": "oasis",
+  "description": "Oasis",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "package": "electron-packager . Oasis --platform=win32 --arch=x64 --icon ./img/icon.ico --out ./out --overwrite",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "productName": "Oasis",
+    "appId": "com.kinleoapple.oasis",
+    "copyright": "© kinleoapple 2022",
+    "directories": {
+      "output": "build"
+    },
+    "compression": "maximum",
+    "asar": false,
+    "win": {
+      "icon": "img/icon.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "ia32"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "./build/icons/icon.ico",
+      "uninstallerIcon": "",
+      "installerHeaderIcon": "img/icon.ico",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": false,
+      "shortcutName": "Oasis"
+    }
+  },
+  "author": "KinLeoapple",
+  "license": "CC0-1.0",
+  "version": "0.0.3",
+  "devDependencies": {
+    "electron": "^18.0.0",
+    "electron-builder": "^22.5.1",
+    "electron-packager": "^15.4.0",
+    "electron-updater": "^4.6.5",
+    "grunt": "^1.5.2",
+    "grunt-electron-installer": "^2.1.0"
+  },
+  "dependencies": {
+    "marked": "^4.0.16",
+    "node-cmd": "^5.0.0"
+  }
+}

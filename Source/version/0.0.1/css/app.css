@@ -1,0 +1,1036 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Coolvetica, Arial, sans-serif;
+    letter-spacing: 2px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+}
+
+#loading {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+    z-index: 2;
+}
+
+#loading #background {
+    width: 100%;
+    height: 100%;
+    transform: scale(1.05);
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    filter: blur(10px);
+    transition: background-image 200ms linear;
+}
+
+#loading #background #mask {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+#loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    background-image: url("../img/loading.gif");
+    background-size: 50px 50px;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.box {
+    width: 800px;
+    height: 500px;
+    background-color: #ababab;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    border-radius: 10px;
+    box-shadow: rgba(14, 14, 14, 0.25) 0 0 6px 2px;
+    overflow: hidden;
+}
+
+/* 控制栏 */
+
+.control_bar {
+    width: 100%;
+    height: 100px;
+    background-color: #c4c4c4;
+    position: absolute;
+    top: 400px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    box-shadow: rgba(40, 40, 40, 0.34) 0 -3px 5px 5px;
+    z-index: 1;
+}
+
+.control_bar .audio_info {
+    width: 200px;
+    height: 100%;
+    display: inline-block;
+    float: left;
+    color: #2a2a2a;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.control_bar .audio_info #title, .control_bar .audio_info #artist {
+    width: 170px;
+    height: 25px;
+    line-height: 20px;
+    margin-left: 20px;
+    margin-right: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.control_bar .audio_info #title {
+    margin-top: 10px;
+}
+
+.control_bar .audio_info #artist {
+    margin-top: 10px;
+    font-size: 15px;
+}
+
+.control_bar .function_bar {
+    width: 400px;
+    height: 100%;
+    display: inline-block;
+    float: left;
+}
+
+.control_bar .function_bar .download {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    position: absolute;
+    margin-left: 30px;
+    margin-top: 25px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: all 100s linear;
+}
+
+.control_bar .function_bar .loop {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    position: absolute;
+    margin-left: 80px;
+    margin-top: 28px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: all 100s linear;
+}
+
+.control_bar .function_bar .loop div {
+    width: 20px;
+    height: 20px;
+    display: none;
+}
+
+.control_bar .function_bar .last, .control_bar .function_bar .next {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: transparent;
+    margin-top: 20px;
+    display: inline-block;
+    float: left;
+    transition: all 100ms linear;
+    cursor: pointer;
+}
+
+.control_bar .function_bar .last {
+    margin-left: 120px;
+}
+
+.control_bar .function_bar .last:hover {
+    webkit-filter: drop-shadow(0 0 10px rgba(0, 0, 0, .5));
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, .5));
+}
+
+.control_bar .function_bar .next {
+    margin-left: 20px;
+}
+
+.control_bar .function_bar .next:hover {
+    webkit-filter: drop-shadow(0 0 10px rgba(0, 0, 0, .5));
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, .5));
+}
+
+.control_bar .function_bar .main_btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #2a2a2a;
+    margin-left: 20px;
+    margin-top: 10px;
+    display: inline-block;
+    float: left;
+    cursor: pointer;
+    transition: all 100ms linear;
+}
+
+.control_bar .function_bar .volume {
+    width: 150px;
+    height: 20px;
+    background-color: transparent;
+    position: absolute;
+    line-height: 20px;
+    margin-left: 300px;
+    margin-top: 28px;
+}
+
+.control_bar .function_bar .volume .volume_icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    float: left;
+    cursor: pointer;
+    display: none;
+    transition: all 100s linear;
+}
+
+.control_bar .function_bar .volume .volume_bar {
+    width: 100px;
+    height: 4px;
+    border-radius: 10px;
+    margin-left: 15px;
+    margin-top: 8px;
+    background-color: rgba(45, 45, 45, 0.78);
+    display: inline-block;
+    float: left;
+    overflow: hidden;
+}
+
+.control_bar .function_bar .volume .volume_bar .current_volume {
+    width: 0;
+    height: 4px;
+    border-radius: 10px;
+    background-color: lightseagreen;
+}
+
+.control_bar .function_bar .volume .volume_bar .volume_btn {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: white;
+    position: absolute;
+    margin-top: -7px;
+    box-shadow: 0 0 2px 1px rgba(40, 40, 40, 0.5);
+    cursor: pointer;
+    transition: box-shadow 100ms linear;
+}
+
+.control_bar .function_bar .volume .volume_bar .volume_btn:hover {
+    box-shadow: 0 0 5px 1px rgba(40, 40, 40, 0.5);
+}
+
+.control_bar .cover {
+    width: 100px;
+    height: 100px;
+    border-radius: 5px;
+    border: 1px solid #2a2a2a;
+    background-color: #2a2a2a;
+    margin-top: -30px;
+    margin-left: 80px;
+    background-size: 100px 100px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    position: absolute;
+    display: inline-block;
+    float: left;
+    transition: all 150ms linear;
+    overflow: hidden;
+    box-shadow: 2px 2px 2px 1px rgba(40, 40, 40, 0.77);
+}
+
+.control_bar .process_bar {
+    width: 760px;
+    height: 15px;
+    position: absolute;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 80px;
+    line-height: 15px;
+}
+
+.control_bar .process_bar .process {
+    width: 650px;
+    height: 5px;
+    border-radius: 10px;
+    display: inline-block;
+    float: left;
+    margin-top: 5px;
+    background-color: rgba(45, 45, 45, 0.78);
+    overflow: hidden;
+}
+
+.control_bar .process_bar .process .current {
+    width: 0;
+    height: 5px;
+    border-radius: 10px;
+    background-color: lightseagreen;
+}
+
+.control_bar .process_bar .process .process_btn {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: white;
+    position: absolute;
+    margin-top: -7px;
+    box-shadow: 0 0 2px 1px rgba(40, 40, 40, 0.5);
+    cursor: pointer;
+    transition: box-shadow 100ms linear;
+}
+
+.control_bar .process_bar .process .process_btn:hover {
+    box-shadow: 0 0 5px 1px rgba(40, 40, 40, 0.5);
+}
+
+.control_bar .process_bar .time {
+    width: 100px;
+    height: 15px;
+    margin-left: 10px;
+    color: #2a2a2a;
+    font-size: 15px;
+    font-weight: bold;
+    display: inline-block;
+    float: left;
+}
+
+.bar_show {
+    width: auto;
+    height: 15px;
+    padding: 2px 3px;
+    background-color: rgba(68, 68, 68, 0.7);
+    border-radius: 3px;
+    position: absolute;
+    line-height: 15px;
+    text-align: center;
+    margin-top: -30px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #cbcbcb;
+}
+
+/* 播放列表 */
+
+.play_list {
+    width: 260px;
+    height: 365px;
+    background-color: #6c6c6c;
+    margin-top: 35px;
+    overflow: hidden;
+    display: inline-block;
+    float: left;
+}
+
+.play_list .search_bar {
+    width: 240px;
+    height: 30px;
+    border-radius: 8px;
+    background-color: rgba(183, 183, 183, 0.73);
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    box-shadow: inset 0 0 2px 1px rgba(17, 17, 17, 0.56);
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    transition: background-color .3s
+}
+
+.play_list .search_bar:hover {
+    background-color: rgb(183, 183, 183);
+    opacity: 1;
+}
+
+.search_content {
+    width: 200px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    padding: 0 5px;
+    border: 2px solid transparent;
+}
+
+.search_content input {
+    width: 100%;
+    height: 20px;
+    flex: 1;
+    border: none;
+    padding-right: 5px;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 20px;
+    background-color: transparent;
+    outline: none;
+    text-decoration: none;
+    color: #282828;
+    letter-spacing: 2px;
+}
+
+.search_bar .search_btn {
+    position: absolute;
+    top: 5px;
+    right: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    border: none;
+    border-radius: 6px;
+    color: #282828;
+    line-height: 26px;
+    cursor: pointer;
+    transition: background-color .3s;
+}
+
+.search_bar .search_btn:hover {
+    background-color: rgba(119, 119, 119, 0.73);
+}
+
+.play_list .source {
+    width: 260px;
+    height: 30px;
+    background-color: transparent;
+}
+
+.play_list .source .source_library,
+.play_list .source .source_net {
+    width: 50%;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    display: inline-block;
+    float: left;
+    margin-top: 10px;
+    font-weight: 680;
+    font-size: 15px;
+    cursor: pointer;
+    color: rgba(47, 47, 47, 0.7);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    border-bottom: #282828 0 solid;
+    transition: all .1s;
+}
+
+.play_list .source .source_center_line {
+    width: 2px;
+    height: 14px;
+    margin-top: 13px;
+    background-color: #282828;
+    position: absolute;
+    margin-left: 129px;
+}
+
+.play_list .source .source_library:active,
+.play_list .source .source_net:active {
+    border-bottom: #282828 3px solid;
+}
+
+.play_list .source .source_library:hover,
+.play_list .source .source_net:hover {
+    color: whitesmoke;
+}
+
+.play_list .source .active {
+    border-bottom: #282828 3px solid;
+    color: rgba(245, 245, 245, 0.75);
+}
+
+.play_list .inner_list {
+    width: 260px;
+    height: 287px;
+    position: relative;
+    background-color: transparent;
+}
+
+.play_list .inner_list .list_content {
+    width: 260px;
+    height: 287px;
+    position: relative;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.play_list .inner_list .list_content .no_result {
+    width: 100%;
+    height: 30px;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 20px;
+    text-align: center;
+    color: #282828;
+    margin-top: 20px;
+}
+
+.play_list .inner_list .list {
+    width: 260px;
+    height: 70px;
+    background-color: rgba(40, 40, 40, 0.76);
+    border-top: 2px solid transparent;
+    border-bottom: 2px solid lightslategray;
+    cursor: pointer;
+    margin-bottom: 1px;
+    transition: all .3s;
+}
+
+.play_list .inner_list .list .list_playing {
+    width: 15%;
+    height: 100%;
+    display: inline-block;
+    float: left;
+    position: relative;
+}
+
+.play_list .inner_list .list .list_playing div {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    animation: rotate 5s linear infinite;
+    display: none;
+    transition: all .3s;
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg)
+    }
+}
+
+.play_list .inner_list .list .list_info {
+    width: 55%;
+    height: 100%;
+    display: inline-block;
+    float: left;
+}
+
+.play_list .inner_list .list .list_title, .play_list .inner_list .list .list_artist {
+    width: 80%;
+    height: 50%;
+    line-height: 35px;
+    color: #c4c4c4;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.play_list .inner_list .list .list_title {
+    font-size: 18px;
+}
+
+.play_list .inner_list .list .list_artist {
+    font-size: 15px;
+}
+
+.play_list .inner_list .list .list_time {
+    width: 20%;
+    height: 100%;
+    display: inline-block;
+    float: left;
+    line-height: 70px;
+    color: #c4c4c4;
+}
+
+.play_list .inner_list .list:hover {
+    background-color: rgba(24, 24, 24, 0.91);
+    /*border-top: 2px solid #358491;*/
+    border-bottom: 2px solid #358491;
+}
+
+.more_info {
+    width: 400px;
+    height: 320px;
+    border-radius: 3px;
+    background: rgba(26, 26, 26, 0.84);
+    position: absolute;
+    margin-left: 265px;
+    margin-top: 70px;
+    box-shadow: rgba(42, 42, 42, 0.81) 1px 1px 5px 3px;
+    opacity: 0;
+    z-index: -1;
+    color: #358491;
+    transition: all .2s;
+}
+
+.more_info:hover {
+    opacity: 1;
+    z-index: 0;
+}
+
+.more_info .more_picture {
+    width: 150px;
+    height: 150px;
+    border-radius: 5px;
+    background-color: #6c6c6c;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 150px 150px;
+    margin-top: 5px;
+    margin-left: 5px;
+    display: inline-block;
+    float: left;
+}
+
+.more_info .more_description {
+    width: 220px;
+    height: 145px;
+    color: aliceblue;
+    margin-top: 5px;
+    margin-left: 15px;
+    font-size: 12px;
+    line-height: 15px;
+    display: inline-block;
+    float: left;
+    overflow: hidden;
+}
+
+.more_info .more_description .inner_description {
+    width: 240px;
+    height: 145px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.more_info .more_description .description_content {
+    width: 220px;
+}
+
+.more_info .more_title {
+    width: 90%;
+    height: 25px;
+    line-height: 25px;
+    text-align: left;
+    margin-top: 10px;
+    color: aliceblue;
+    font-size: 23px;
+    margin-left: 8px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.more_info .more_artist {
+    width: 90%;
+    height: 20px;
+    line-height: 20px;
+    text-align: left;
+    margin-top: 2px;
+    color: aliceblue;
+    font-size: 15px;
+    margin-left: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.more_info .more_album {
+    width: 90%;
+    height: 20px;
+    line-height: 20px;
+    text-align: left;
+    margin-top: 2px;
+    color: aliceblue;
+    font-size: 15px;
+    margin-left: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.more_info .more_tip_title {
+    width: 100%;
+    height: 20px;
+    line-height: 20px;
+    text-align: left;
+    margin-top: 10px;
+    color: lightseagreen;
+    font-size: 12px;
+    margin-left: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.more_info .share_QRCode {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    border-radius: 8px;
+    background:-webkit-gradient(linear, 0 0, 100% 100%, from(rgba(135, 206, 250)), to(rgb(51, 211, 172)));
+    background-size: 200%;
+    margin-top: -210px;
+    margin-left: 150px;
+    box-shadow: #232323 10px 10px 10px 5px;
+    transition: all .2s;
+    z-index: -1;
+    opacity: 0;
+}
+
+.more_info .delete {
+    width: 26px;
+    height: 26px;
+    display: inline-block;
+    float: right;
+    margin-top: 5px;
+    margin-right: 20px;
+}
+
+/* 滚动歌词 */
+
+.lyrics {
+    width: 540px;
+    height: 292px;
+    overflow: hidden;
+    display: inline-block;
+    float: left;
+    margin-top: 70px;
+}
+
+.lyrics .inner_lyrics {
+    width: 560px;
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.lyrics .inner_lyrics .line {
+    width: 100%;
+    margin-top: 5px;
+    line-height: 30px;
+    font-size: 15px;
+    text-align: center;
+    color: rgba(72, 72, 72, 0.50);
+    transition: all .1s;
+}
+
+.lyrics .inner_lyrics .no_lyrics {
+    width: 100%;
+    height: 30px;
+    margin-top: 20px;
+    line-height: 30px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    color: #282828;
+}
+
+/* 顶部栏 */
+
+.top_bar {
+    width: 100%;
+    height: 35px;
+    background-color: #c4c4c4;
+    box-shadow: rgba(40, 40, 40, 0.34) -3px 3px 5px 5px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 465px;
+    margin: auto;
+    z-index: 3;
+    -webkit-app-region: drag;
+    -webkit-user-select: none;
+}
+
+.top_bar #close,
+.top_bar #min,
+.top_bar #setting {
+    width: 20px;
+    height: 20px;
+    margin-top: 7px;
+    margin-right: 15px;
+    border-radius: 3px;
+    display: inline-block;
+    float: right;
+    cursor: pointer;
+    transition: all .25s;
+    -webkit-app-region: no-drag
+}
+
+.top_bar #close:hover,
+.top_bar #min:hover,
+.top_bar #setting:hover {
+    background-color: #3e3d3d;
+}
+
+.top_bar #current_song {
+    width: 400px;
+    height: 35px;
+    line-height: 35px;
+    display: inline-block;
+    float: left;
+    margin-left: 5px;
+    font-size: 15px;
+    font-weight: 520;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.top_bar #app_icon {
+    width: 26px;
+    height: 26px;
+    margin-top: 4px;
+    margin-right: 15px;
+    display: inline-block;
+    float: left;
+    margin-left: 15px;
+}
+
+/* 主页, 设置页 */
+
+#main-page, #setting-page {
+    display: inline-block;
+    transition: all .2s linear;
+}
+
+/* 设置页侧边栏 */
+
+.setting_side_panel {
+    width: 200px;
+    height: 365px;
+    position: relative;
+    background-color: #6c6c6c;
+    margin-top: 35px;
+    overflow: hidden;
+    display: inline-block;
+    float: left;
+}
+
+.setting_side_panel #setting_back_icon {
+    width: 35px;
+    height: 35px;
+    position: relative;
+    border-radius: 50%;
+    margin-left: 10px;
+    margin-top: 20px;
+    display: inline-block;
+    float: left;
+    text-align: center;
+    transition: all .2s;
+}
+
+.setting_side_panel #setting_back_icon svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+.setting_side_panel #setting_back_icon:hover {
+    background-color: #232323;
+}
+
+.setting_side_panel .line {
+    width: 2px;
+    height: 21px;
+    background-color: #2a2a2a;
+    margin-top: 27px;
+    margin-left: 5px;
+    display: inline-block;
+    float: left;
+}
+
+.setting_side_panel #setting_title {
+    width: 143px;
+    height: 35px;
+    font-size: 35px;
+    color: #232323;
+    font-weight: 480;
+    text-align: center;
+    margin-left: 5px;
+    margin-top: 20px;
+    display: inline-block;
+    float: left;
+    letter-spacing: 3px;
+}
+
+.setting_side_panel #setting_title span {
+    width: 101px;
+    height: 35px;
+    display: block;
+    padding-left: 21px;
+    padding-right: 21px;
+    line-height: 35px;
+    text-align: justify;
+    text-align-last: justify;
+}
+
+.setting_side_panel #setting_list {
+    width: 100%;
+    height: 300px;
+    margin-top: 65px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.setting_side_panel .setting_option {
+    width: 100%;
+    height: 70px;
+    cursor: pointer;
+    transition: all .2s;
+}
+
+.setting_side_panel .setting_icon {
+    width: 20px;
+    height: 100%;
+    margin-left: 20px;
+    display: inline-block;
+    float: left;
+}
+
+.setting_side_panel .setting_text {
+    width: 100px;
+    height: 70px;
+    line-height: 70px;
+    display: inline-block;
+    float: left;
+    margin-left: 10px;
+}
+
+.setting_side_panel .setting_text span {
+    width: 100px;
+    height: 70px;
+    line-height: 70px;
+    display: block;
+    padding-left: 20px;
+    text-align: justify;
+    text-align-last: justify;
+}
+
+.setting_side_panel .setting_option svg {
+    margin-top: 25px;
+}
+
+.setting_option svg path {
+    transition: all .2s;
+}
+
+.setting_side_panel .setting_option:active {
+    background-color: #2a2a2a;
+    color: #aaaaaa;
+}
+
+.setting_side_panel .setting_option:active svg path {
+    fill: #ffcc00;
+}
+
+.setting_side_panel .active {
+    background-color: #2a2a2a;
+    color: #aaaaaa;
+}
+
+.setting_side_panel .active svg path {
+    fill: #ffcc00;
+}
+
+.setting_panel {
+    width: 600px;
+    height: 365px;
+    margin-top: 35px;
+    position: relative;
+    display: inline-block;
+    float: left;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.setting_panel .setting_panel_title {
+    width: 100px;
+    height: 30px;
+    line-height: 30px;
+    padding-top: 30px;
+    padding-left: 20px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.setting_panel .setting_block {
+    width: 100%;
+    height: auto;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.setting_panel #language_block {
+    width: 100%;
+    height: 150px;
+}
+
+.setting_panel #language_block .setting_block div {
+    width: 120px;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 5px;
+    margin-left: 20px;
+    margin-right: 20px;
+    background-color: #232323;
+    color: #6c6c6c;
+    text-align: center;
+    display: inline-block;
+    float: left;
+    cursor: pointer;
+    transition: all .2s;
+}
+
+.setting_panel #language_block .setting_block div:hover {
+    background-color: #4f4f4f;
+    color: #e5e5e5;
+}
