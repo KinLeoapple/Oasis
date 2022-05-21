@@ -1,12 +1,4 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 <h1> Oasis @0.0.5</h1><br>
-=======
-<h1> Oasis @0.0.4</h1><br>
->>>>>>> 29d7fc3f1e11dfcae7a57d57ad5902d70831ebbb
-=======
-<h1> Oasis @0.0.5</h1><br>
->>>>>>> 44436b48405553375025efff50b7216d303e1a9d
 <h3> ✨ Features ✨ </h3><br>
 <ol>
   <li>💡 <strong>You can search and play music for free</strong><br><br></li>
