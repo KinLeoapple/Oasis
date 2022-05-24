@@ -1,4 +1,4 @@
-<h1> Oasis @0.0.5</h1><br>
+<h1> Oasis @0.0.6</h1><br>
 <h3> ✨ Features ✨ </h3><br>
 <ol>
   <li>💡 <strong>You can search and play music for free</strong><br><br></li>
