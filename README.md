@@ -11,5 +11,3 @@
   <li>💎 <strong>https://api.klizi.cn/<strong><br><br></li>
   <li>💎 <strong>http://ovooa.com/<strong><br><br></li>
 </ol>
-<br><br><br><br>
-<h2> ⚡Download and Enjoy⚡ </h2>
