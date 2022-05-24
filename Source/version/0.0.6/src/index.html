@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Player</title>
+
+    <!-- JS部分 -->
+    <script>window.$ = window.jQuery = require("./js/jquery.js")</script>
+    <script src="./js/axios.js" type="text/javascript" rel="script"></script>
+    <script src="./js/perfect-scrollbar.js" type="text/javascript" rel="script"></script>
+    <script src="./js/pinyin.js" type="text/javascript" rel="script"></script>
+    <script src="./js/traditional.js" type="text/javascript" rel="script"></script>
+    <script src="./js/svgImage.js" type="text/javascript" rel="script"></script>
+    <script src="./js/languageLib.js" type="text/javascript" rel="script"></script>
+    <script src="./js/json5.js" type="text/javascript" rel="script"></script>
+    <script src="./js/marked.min.js" type="text/javascript" rel="script"></script>
+    <script src="./js/themes.js" type="text/javascript" rel="script"></script>
+    <script src="./js/player.js" type="text/javascript" rel="script"></script>
+
+    <!-- 样式部分 -->
+    <style id="style"></style>
+    <link href="./font/font.css" type="text/css" rel="stylesheet">
+    <link href="./css/app.css" type="text/css" rel="stylesheet">
+    <link href="./css/perfect-scrollbar.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+<div class="box" id="box">
+    <!-- 启动界面 -->
+    <div id="loading">
+        <div id="background">
+            <div id="mask"></div>
+        </div>
+        <div id="loader"></div>
+        <div id="loading-message"></div>
+    </div>
+    <!-- 顶部栏 -->
+    <div class="top_bar">
+        <div id="app_icon">
+            <img src="./img/icon.ico" width="26px" height="26px" alt="" draggable="false">
+        </div>
+        <div id="current_song"></div>
+        <div id="close"></div>
+        <div id="min"></div>
+        <div id="setting"></div>
+    </div>
+    <!-- 主页  -->
+    <div id="main-page">
+        <!-- 播放列表 -->
+        <div class="play_list">
+            <div class="source">
+                <div class="source_library" id="library"></div>
+                <div class="source_center_line"></div>
+                <div class="source_net" id="net"></div>
+            </div>
+            <div class="search_bar" id="search_bar">
+                <div class="search_content" id="search_content">
+                    <input type="text" value="" autocomplete="off" maxlength="100" tabindex="-1">
+                </div>
+                <div class="search_btn"></div>
+            </div>
+            <div class="inner_list" id="inner_list">
+                <div class="list_content" id="list_content"></div>
+            </div>
+        </div>
+        <!-- 更多信息 -->
+        <div class="more_info" id="more_info">
+            <div class="more_picture" id="more_picture"></div>
+            <div class="more_description" id="more_description">
+                <div class="inner_description">
+                    <div class="description_content" id="description_content"></div>
+                </div>
+            </div>
+            <div class="more_title" id="more_title"></div>
+            <div class="more_tip_title" id="more_artist_tip"></div>
+            <div class="more_artist" id="more_artist"></div>
+            <div class="more_tip_title" id="more_album_tip"></div>
+            <div class="more_album" id="more_album"></div>
+            <div class="delete" id="delete">
+                <div class="delete_icon" id="delete_icon"></div>
+                <div class="delete_text" id="delete_text"></div>
+            </div>
+        </div>
+        <!-- 频谱 -->
+        <div id="spectrum_box" class="spectrum_box">
+            <canvas id="spectrum" class="spectrum" height="600" width="600"></canvas>
+        </div>
+        <!-- 滚动歌词 -->
+        <div class="lyrics" id="lyrics">
+            <div class="lyrics_container">
+                <div class="inner_lyrics" id="inner_lyrics"></div>
+            </div>
+        </div>
+    </div>
+    <!-- 设置页 -->
+    <div id="setting-page">
+        <!-- 设置侧边栏 -->
+        <div class="setting_side_panel" id="setting_side_panel">
+            <div id="setting_back_icon"></div>
+            <div class="line"></div>
+            <div id="setting_title">
+                <span></span>
+            </div>
+            <div id="setting_list">
+                <div class="setting_option" id="language">
+                    <div class="setting_icon" id="language_icon"></div>
+                    <div class="setting_text" id="language_text">
+                        <span></span>
+                    </div>
+                </div>
+                <div class="setting_option" id="skin">
+                    <div class="setting_icon" id="skin_icon"></div>
+                    <div class="setting_text" id="skin_text">
+                        <span></span>
+                    </div>
+                </div>
+                <div class="setting_option" id="about">
+                    <div class="setting_icon" id="about_icon"></div>
+                    <div class="setting_text" id="about_text">
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 设置面板 -->
+        <div class="setting_panel" id="setting_panel"></div>
+    </div>
+    <!-- 底部控制栏 -->
+    <div class="control_bar" id="control_bar">
+        <!-- 音频信息 -->
+        <div class="audio_info">
+            <div id="title"></div>
+            <div id="artist"></div>
+        </div>
+        <!-- 功能按钮 -->
+        <div class="function_bar">
+            <div class="download" id="download"></div>
+            <div class="loop" id="loop">
+                <div id="list_loop"></div>
+                <div id="single_loop"></div>
+                <div id="random_loop"></div>
+            </div>
+            <div class="last" id="last"></div>
+            <div class="main_btn" id="main_btn"></div>
+            <div class="next" id="next"></div>
+            <div class="volume">
+                <div id="volume_icon" style="width: 20px; height: 20px; display: inline-block; float: left;">
+                    <div class="volume_icon" id="unmute_icon"></div>
+                    <div class="volume_icon" id="mute_icon"></div>
+                </div>
+                <div class="volume_bar" id="volume_bar">
+                    <div class="bar_show" id="volume_show" style="width: 38px; display: none;"></div>
+                    <div class="current_volume" id="current_volume"></div>
+                    <div class="volume_btn" id="volume_btn"></div>
+                </div>
+            </div>
+            <div class="multi_version" id="multi_version">
+                <div class="multi_version_icon" id="multi_version_icon"></div>
+                <div class="multi_version_list" id="multi_version_list"></div>
+                <div class="multi_version_triangle"></div>
+            </div>
+            <div style="clear: both"></div>
+        </div>
+        <!-- 音频封面 -->
+        <div class="cover" id="picture"></div>
+        <!-- 进度条 -->
+        <div class="process_bar">
+            <div class="process" id="process">
+                <div class="bar_show" id="bar_show" style="width: 70px; margin-left: 570px; display: none;"></div>
+                <div class="current" id="current"></div>
+                <div class="process_btn" id="process_btn"></div>
+            </div>
+            <div class="time" id="time"></div>
+        </div>
+    </div>
+</div>
+<script>     // require('electron').ipcRenderer;
+// You can also require other files to run in this process
+require('./renderer.js')
+</script>
+</body>
+</html>
